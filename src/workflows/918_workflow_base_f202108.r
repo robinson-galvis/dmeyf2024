@@ -421,7 +421,7 @@ KA_evaluate_kaggle <- function( pinputexps )
 # Que predice 202108 donde NO conozco la clase
 
 # wf_agosto <- function( pnombrewf )
-wf_validacion_inicial <- function( pnombrewf )
+wf_canaritos_0p2_4 <- function( pnombrewf )
 {
   param_local <- exp_wf_init( pnombrewf ) # linea workflow inicial fija
 
@@ -441,7 +441,7 @@ wf_validacion_inicial <- function( pnombrewf )
     mtry_ratio= 0.2
   )
 
-  #CN_canaritos_asesinos_base(ratio=0.2, desvio=4.0)
+  CN_canaritos_asesinos_base(ratio=0.2, desvio=4.0)
 
   # Etapas modelado
   ts8 <- TS_strategy_base8()
@@ -460,4 +460,4 @@ wf_validacion_inicial <- function( pnombrewf )
 
 # llamo al workflow con future = 202108
 # wf_agosto()
-wf_validacion_inicial()
+wf_canaritos_0p2_4()
