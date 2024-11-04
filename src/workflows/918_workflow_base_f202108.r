@@ -442,7 +442,7 @@ wf_canaritos_0p5_5 <- function( pnombrewf )
   )
 
   # CN_canaritos_asesinos_base(ratio=0.2, desvio=4.0)
-  CN_canaritos_asesinos_base(ratio=0.5, desvio=5.0)
+  CN_canaritos_asesinos_base(ratio=0.1, desvio=2.0)
 
   # Etapas modelado
   ts8 <- TS_strategy_base8()
