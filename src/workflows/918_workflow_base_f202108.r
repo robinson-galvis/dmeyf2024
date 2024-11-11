@@ -392,6 +392,29 @@ SC_scoring <- function( pinputexps )
 
   return( exp_correr_script( param_local ) ) # linea fija
 }
+
+#------------------------------------------------------------------------------
+# proceso EV_evaluate_conclase_gan
+# deterministico, SIN random
+
+EV_evaluate_conclase_gan <- function( pinputexps )
+{
+  if( -1 == (param_local <- exp_init())$resultado ) return( 0 )# linea fija
+  param_local$meta$script <- "/src/wfetapas/z2501_EV_evaluate_conclase_gan.r"
+  param_local$semilla <- NULL # no usa semilla, es deterministico
+  param_local$train$positivos <- c( "BAJA+2")
+  param_local$train$gan1 <- 117000
+  param_local$train$gan0 <- -3000
+  param_local$train$meseta <- 401
+  # para graficar
+  param_local$graficar$envios_desde <- 1000L
+  param_local$graficar$envios_hasta <- 5000L
+  param_local$graficar$ventana_suavizado <- 401L
+  return( exp_correr_script( param_local ) ) # linea fija
+}
+
+
+
 #------------------------------------------------------------------------------
 # proceso KA_evaluate_kaggle
 # deterministico, SIN random
@@ -421,7 +444,7 @@ KA_evaluate_kaggle <- function( pinputexps )
 # Que predice 202108 donde NO conozco la clase
 
 # wf_agosto <- function( pnombrewf )
-wf_rf_modelo1_original_prueba_6_semillas <- function( pnombrewf )
+wf_rf_modeloprueba_a16_ha20_7semillas <- function( pnombrewf )
 {
   param_local <- exp_wf_init( pnombrewf ) # linea workflow inicial fija
 
@@ -435,8 +458,8 @@ wf_rf_modelo1_original_prueba_6_semillas <- function( pnombrewf )
   # DR_drifting_base(metodo="rank_cero_fijo")
   # FEhist_base()
 
-  FErf_attributes_base( arbolitos= 20,
-                        hojas_por_arbol= 16,
+  FErf_attributes_base( arbolitos= 16,
+                        hojas_por_arbol= 20,
                         datos_por_hoja= 1000,
                         mtry_ratio= 0.2
   )
@@ -448,8 +471,9 @@ wf_rf_modelo1_original_prueba_6_semillas <- function( pnombrewf )
   ht <- HT_tuning_base( bo_iteraciones = 40 )  # iteraciones inteligentes
 
   # Etapas finales
-  fm <- FM_final_models_lightgbm( c(ht, ts8), ranks=c(1), qsemillas=6 )
+  fm <- FM_final_models_lightgbm( c(ht, ts8), ranks=c(1), qsemillas=7 )
   SC_scoring( c(fm, ts8) )
+  EV_evaluate_conclase_gan()
   KA_evaluate_kaggle()  # genera archivos para Kaggle
 
   return( exp_wf_end() ) # linea workflow final fija
@@ -460,4 +484,4 @@ wf_rf_modelo1_original_prueba_6_semillas <- function( pnombrewf )
 
 # llamo al workflow con future = 202108
 # wf_agosto()
-wf_rf_modelo1_original_prueba_6_semillas()
+wf_rf_modeloprueba_a16_ha20_7semillas()
