@@ -421,7 +421,7 @@ KA_evaluate_kaggle <- function( pinputexps )
 # Que predice 202108 donde NO conozco la clase
 
 # wf_agosto <- function( pnombrewf )
-wf_canaritos_0p2_4_15trees_10leaves_800data <- function( pnombrewf )
+wf_rf_modelo1_original_prueba_6_semillas <- function( pnombrewf )
 {
   param_local <- exp_wf_init( pnombrewf ) # linea workflow inicial fija
 
@@ -431,24 +431,24 @@ wf_canaritos_0p2_4_15trees_10leaves_800data <- function( pnombrewf )
 
   # Etapas preprocesamiento
   CA_catastrophe_base( metodo="MachineLearning")
-  FEintra_manual_base()
-  DR_drifting_base(metodo="rank_cero_fijo")
-  FEhist_base()
+  # FEintra_manual_base()
+  # DR_drifting_base(metodo="rank_cero_fijo")
+  # FEhist_base()
 
-  FErf_attributes_base( arbolitos= 15,
-    hojas_por_arbol= 10,
-    datos_por_hoja= 800,
-    mtry_ratio= 0.2
+  FErf_attributes_base( arbolitos= 20,
+                        hojas_por_arbol= 16,
+                        datos_por_hoja= 1000,
+                        mtry_ratio= 0.2
   )
 
-  CN_canaritos_asesinos_base(ratio=0.2, desvio=4.0)
+  # CN_canaritos_asesinos_base(ratio=0.2, desvio=4.0)
 
   # Etapas modelado
   ts8 <- TS_strategy_base8()
   ht <- HT_tuning_base( bo_iteraciones = 40 )  # iteraciones inteligentes
 
   # Etapas finales
-  fm <- FM_final_models_lightgbm( c(ht, ts8), ranks=c(1), qsemillas=5 )
+  fm <- FM_final_models_lightgbm( c(ht, ts8), ranks=c(1), qsemillas=6 )
   SC_scoring( c(fm, ts8) )
   KA_evaluate_kaggle()  # genera archivos para Kaggle
 
@@ -460,4 +460,4 @@ wf_canaritos_0p2_4_15trees_10leaves_800data <- function( pnombrewf )
 
 # llamo al workflow con future = 202108
 # wf_agosto()
-wf_canaritos_0p2_4_15trees_10leaves_800data()
+wf_rf_modelo1_original_prueba_6_semillas()
