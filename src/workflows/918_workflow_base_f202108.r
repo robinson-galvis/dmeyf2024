@@ -400,7 +400,7 @@ SC_scoring <- function( pinputexps )
 EV_evaluate_conclase_gan <- function( pinputexps )
 {
   if( -1 == (param_local <- exp_init())$resultado ) return( 0 )# linea fija
-  param_local$meta$script <- "/src/wfetapas/z2501_EV_evaluate_conclase_gan.r"
+  param_local$meta$script <- "/src/wf-etapas/z2501_EV_evaluate_conclase_gan.r"
   param_local$semilla <- NULL # no usa semilla, es deterministico
   param_local$train$positivos <- c( "BAJA+2")
   param_local$train$gan1 <- 117000
