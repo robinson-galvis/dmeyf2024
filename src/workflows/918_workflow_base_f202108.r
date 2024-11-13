@@ -473,8 +473,9 @@ wf_rf_modeloprueba_a16_ha20_7semillas <- function( pnombrewf )
   # Etapas finales
   fm <- FM_final_models_lightgbm( c(ht, ts8), ranks=c(1), qsemillas=7 )
   SC_scoring( c(fm, ts8) )
-  EV_evaluate_conclase_gan()
   KA_evaluate_kaggle()  # genera archivos para Kaggle
+  
+  EV_evaluate_conclase_gan()
 
   return( exp_wf_end() ) # linea workflow final fija
 }
