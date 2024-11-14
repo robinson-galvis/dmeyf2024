@@ -444,22 +444,22 @@ KA_evaluate_kaggle <- function( pinputexps )
 # Que predice 202108 donde NO conozco la clase
 
 # wf_agosto <- function( pnombrewf )
-wf_rf_modeloprueba_a16_ha20_7semillas <- function( pnombrewf )
+wf_rf_modeloprueba_a25_ha25_10semillas <- function( pnombrewf )
 {
   param_local <- exp_wf_init( pnombrewf ) # linea workflow inicial fija
 
   # Etapa especificacion dataset de la Segunda Competencia Kaggle
-  # DT_incorporar_dataset( "~/buckets/b1/datasets/competencia_02.csv.gz")
-  DT_incorporar_dataset( "~/buckets/b1/datasets/competencia_02.csv")
+  DT_incorporar_dataset( "~/buckets/b1/datasets/competencia_02.csv.gz")
+  # DT_incorporar_dataset( "~/buckets/b1/datasets/competencia_02.csv")
 
   # Etapas preprocesamiento
   CA_catastrophe_base( metodo="MachineLearning")
   # FEintra_manual_base()
-  # DR_drifting_base(metodo="rank_cero_fijo")
+  DR_drifting_base(metodo = "dolar_oficial")
   # FEhist_base()
 
-  FErf_attributes_base( arbolitos= 16,
-                        hojas_por_arbol= 20,
+  FErf_attributes_base( arbolitos= 25,
+                        hojas_por_arbol= 25,
                         datos_por_hoja= 1000,
                         mtry_ratio= 0.2
   )
@@ -471,9 +471,9 @@ wf_rf_modeloprueba_a16_ha20_7semillas <- function( pnombrewf )
   ht <- HT_tuning_base( bo_iteraciones = 40 )  # iteraciones inteligentes
 
   # Etapas finales
-  fm <- FM_final_models_lightgbm( c(ht, ts8), ranks=c(1), qsemillas=7 )
+  fm <- FM_final_models_lightgbm( c(ht, ts8), ranks=c(1), qsemillas=10)
   SC_scoring( c(fm, ts8) )
-  KA_evaluate_kaggle()  # genera archivos para Kaggle
+  # KA_evaluate_kaggle()  # genera archivos para Kaggle
   
   EV_evaluate_conclase_gan()
 
@@ -485,4 +485,4 @@ wf_rf_modeloprueba_a16_ha20_7semillas <- function( pnombrewf )
 
 # llamo al workflow con future = 202108
 # wf_agosto()
-wf_rf_modeloprueba_a16_ha20_7semillas()
+wf_rf_modeloprueba_a25_ha25_10semillas()
