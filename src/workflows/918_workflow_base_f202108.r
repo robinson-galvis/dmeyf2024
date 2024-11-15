@@ -18,7 +18,7 @@ envg$EXPENV$repo_dir <- "~/dmeyf2024/"
 envg$EXPENV$datasets_dir <- "~/buckets/b1/datasets/"
 envg$EXPENV$messenger <- "~/install/zulip_enviar.sh"
 
-envg$EXPENV$semilla_primigenia <- 881207 #102191
+envg$EXPENV$semilla_primigenia <- 102191 #881207 #
 
 # leo el unico parametro del script
 args <- commandArgs(trailingOnly=TRUE)
@@ -444,7 +444,7 @@ KA_evaluate_kaggle <- function( pinputexps )
 # Que predice 202108 donde NO conozco la clase
 
 # wf_agosto <- function( pnombrewf )
-wf_rf_modeloprueba_a25_ha25_10semillas <- function( pnombrewf )
+wf_rf_modeloprueba_a30_ha30_10semillas <- function( pnombrewf )
 {
   param_local <- exp_wf_init( pnombrewf ) # linea workflow inicial fija
 
@@ -458,8 +458,8 @@ wf_rf_modeloprueba_a25_ha25_10semillas <- function( pnombrewf )
   DR_drifting_base(metodo = "dolar_oficial")
   # FEhist_base()
 
-  FErf_attributes_base( arbolitos= 25,
-                        hojas_por_arbol= 25,
+  FErf_attributes_base( arbolitos= 30,
+                        hojas_por_arbol= 30,
                         datos_por_hoja= 1000,
                         mtry_ratio= 0.2
   )
@@ -473,9 +473,9 @@ wf_rf_modeloprueba_a25_ha25_10semillas <- function( pnombrewf )
   # Etapas finales
   fm <- FM_final_models_lightgbm( c(ht, ts8), ranks=c(1), qsemillas=10)
   SC_scoring( c(fm, ts8) )
-  # KA_evaluate_kaggle()  # genera archivos para Kaggle
+  KA_evaluate_kaggle()  # genera archivos para Kaggle
   
-  EV_evaluate_conclase_gan()
+  # EV_evaluate_conclase_gan()
 
   return( exp_wf_end() ) # linea workflow final fija
 }
@@ -485,4 +485,4 @@ wf_rf_modeloprueba_a25_ha25_10semillas <- function( pnombrewf )
 
 # llamo al workflow con future = 202108
 # wf_agosto()
-wf_rf_modeloprueba_a25_ha25_10semillas()
+wf_rf_modeloprueba_a30_ha30_10semillas()
