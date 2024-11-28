@@ -478,7 +478,7 @@ KA_evaluate_kaggle_semillerio <- function( pinputexps )
 # Que predice 202107 donde conozco la clase
 # y ya genera graficos
 
-wf_semillero_rf_a20_sem881269_comp3 <- function( pnombrewf )
+wf_semillero_rf_a25_sem881269_comp3 <- function( pnombrewf )
 {
   param_local <- exp_wf_init( pnombrewf ) # linea fija
 
@@ -519,6 +519,6 @@ wf_semillero_rf_a20_sem881269_comp3 <- function( pnombrewf )
 # Aqui comienza el programa
 
 # llamo al workflow con future = 202108
-wf_semillero_rf_a20_sem881269_comp3()
+wf_semillero_rf_a25_sem881269_comp3()
 
 
